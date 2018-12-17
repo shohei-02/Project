@@ -6,13 +6,12 @@
 </head>
 <body>
     {% for game in games %}
-        <h1>{{ game.game_date }}</h1>
+        <p1>{{ game.game_date }}</p1>
         <p1>{{ game.venue }}</p1>
-        <p1>{{ game.weather }}</p1>
+        <p1>{{ game.weather }}</p1></br>
         <p1>{{ game.my_team }}</p1>
-        <p1>{{ game.opponent_team }}</p1>
-        <p1>{{ game.my_score }}</p1>
-        <p1>{{ game.opponent_score }}</p1>
+        <p1><a href=" {% url 'game_detail' game.id %} ">{{ game.my_score }}-{{ game.opponent_score }}</a></p1>
+        <p1>{{ game.opponent_team }}</p1></br>
     {% endfor %}
 
 </body>
