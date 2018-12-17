@@ -29,7 +29,7 @@ def game_new(request):
         if form.is_valid():
             game = form.save(commit=False)
             game.save()
-            return redirect('game_list', id=game.pk)
+            return redirect('game_list')
     else:
         form = GameForm()
     return render(request, 'bbrecord/game_edit.html', {'form': form})

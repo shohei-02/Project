@@ -6,7 +6,7 @@ class GameForm(forms.ModelForm):
 
     class Meta:
         model = Game
-        fields = ('my_team', 'game_date',)
+        fields = ('my_team', 'game_date', 'venue', 'weather', 'opponent_team', 'my_score', 'opponent_score',)
 
 
     #my_team = forms.CharField(label='チーム名')
