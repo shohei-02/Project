@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <p1><a href=" {% url 'game_' %} ">新規追加</a></p1>
+    <p1><a href=" {% url 'game_new' %} ">新規追加</a></p1>
     {% for game in games %}
         <p1>{{ game.game_date }}</p1>
         <p1>{{ game.venue }}</p1>
