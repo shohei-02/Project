@@ -20,7 +20,7 @@ class Game(models.Model):
     inning_score = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return self.opponent_team
+        return self.my_team
 
 
 class Playerstats(models.Model):

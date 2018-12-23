@@ -1,48 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <div>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>イニング</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>計</th>
+{% extends 'bbrecord/base.html' %}
+​
+{% block content %}
+    <div clas="container">
+    <table class="table table-borderless">
+        <thead class="table-sm">
+        <tr class="table-secondary">
+            <th></th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>計</th>
         </tr>
         </thead>
         <tbody>
         {% for game in games %}
-            <tr><td>{{ game.opponent_team }}</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>{{ game.opponent_score }}</td></tr>
-            <tr><td>{{ game.my_team }}</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>{{ game.my_score }}</td></tr>
+        <tr>
+            <td class="table-active">{{ game.opponent_team }}</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">{{ game.opponent_score }}</td>
+        </tr>
+        <tr>
+            <td class="table-active">{{ game.my_team }}</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">0</td>
+            <td class="table-active">{{ game.my_score }}</td>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
     </div>
     </br>
     <div>
-    <table>
-        <thead>
+    <table class="table table-borderless table-striped">
+        <thead class="table-sm">
         <tr>
-            <th>打順</th><th>名前</th><th>ポジション</th><th>打席</th><th>打数</th><th>安打</th><th>四死球</th><th>三振</th>
+            <th>打順</th>
+            <th>名前</th>
+            <th>ポジション</th>
+            <th>打席</th>
+            <th>打数</th>
+            <th>安打</th>
+            <th>四死球</th>
+            <th>三振</th>
         </tr>
         </thead>
         <tbody>
         {% for player in players %}
-            <tr>
+        <tr>
             <td>{{ player.dajun }}</td>
             <td>{{ player.player_id }}</td>
             <td>{{ player.position }}</td>
             <td>{{ player.daseki }}</td>
             <td>{{ player.dasuu }}</td>
             <td>{{ player.hit }}</td>
-            <td>{{ player.walk }}</td>
+            <td>{{ player.Walk }}</td>
             <td>{{ player.stlike_out }}</td>
-            </tr>
+        </tr>
         {% endfor %}
         </tbody>
     </table>
     </div>
-</body>
-</html>
+{% endblock %}

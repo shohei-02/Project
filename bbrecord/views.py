@@ -25,11 +25,11 @@ def game_detail(request, id):
 
 def game_new(request):
     if request.method == "POST":
-        form = GameForm(request.POST)
+        gform = GameForm(request.POST)
         if form.is_valid():
-            game = form.save(commit=False)
+            game = gform.save(commit=False)
             game.save()
             return redirect('game_list')
     else:
-        form = GameForm()
-    return render(request, 'bbrecord/game_edit.html', {'form': form})
+        gform = GameForm()
+    return render(request, 'bbrecord/game_edit.html', {'gform': gform})

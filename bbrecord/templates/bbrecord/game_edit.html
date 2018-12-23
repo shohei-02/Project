@@ -1,27 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'bbrecord/base.html' %}
+​
+{% block content %}
     <div>
     <table border="1">
         <thead>
         <tr>
-            <th>イニング</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>計</th>
+            <th>イニング</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>計</th>
         </tr>
         </thead>
         <tbody>
-            <tr><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
-            <tr><td></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+        <tr>
+            <td></td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+        </tr>
         </tbody>
 
     </table>
     </div>
-    <form method="POST">
-            {% csrf_token %}
-        {{ form.as_table }}
+    <form method="POST">{% csrf_token %}
+        <ur>
+            <li>{{ gform.my_team.label }}: {{ gform.my_team }}</li>
+            <li>{{ gform.game_date.label }}: {{ gform.game_date }}</li>
+            <li>{{ gform.venue.label }}: {{ gform.venue }}</li>
+            <li>{{ gform.weather.label }}: {{ gform.weather }}</li>
+            <li>{{ gform.opponent_team.label }}: {{ gform.opponent_team }}</li>
+            <li>{{ gform.my_score.label }}: {{ gform.my_score }}</li>
+            <li>{{ gform.opponent_score.label }}: {{ gform.opponent_score }}</li>
+        </ur>
         <button type="submit">Save</button>
     </form>
     </br>
@@ -29,10 +60,16 @@
     <table>
         <thead>
         <tr>
-            <th>打順</th><th>名前</th><th>ポジション</th><th>打席</th><th>打数</th><th>安打</th><th>四死球</th><th>三振</th>
+            <th>打順</th>
+            <th>名前</th>
+            <th>ポジション</th>
+            <th>打席</th>
+            <th>打数</th>
+            <th>安打</th>
+            <th>四死球</th>
+            <th>三振</th>
         </tr>
         </thead>
     </table>
     </div>
-</body>
-</html>
+{% endblock %}

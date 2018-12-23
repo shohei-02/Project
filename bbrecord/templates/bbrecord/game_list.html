@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'bbrecord/base.html' %}
+​
+{% block content %}
 <body>
-    <p1><a href=" {% url 'game_new' %} ">新規追加</a></p1>
+    <h3><a href=" {% url 'game_new' %} ">新規追加</a></h3>
     {% for game in games %}
         <p1>{{ game.game_date }}</p1>
         <p1>{{ game.venue }}</p1>
@@ -14,6 +11,4 @@
         <p1><a href=" {% url 'game_detail' game.id %} ">{{ game.my_score }}-{{ game.opponent_score }}</a></p1>
         <p1>{{ game.opponent_team }}</p1></br>
     {% endfor %}
-
-</body>
-</html>
+{% endblock %}
