@@ -7,3 +7,5 @@ var data = [
 var grid = document.getElementById('grid');
 
 new Handsontable(grid, {data: data});
+
+

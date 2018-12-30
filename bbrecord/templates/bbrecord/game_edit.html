@@ -1,7 +1,56 @@
 {% extends 'bbrecord/base.html' %}
 ​
 {% block content %}
-    <div>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script>// ＋ボタン(class="add")がクリックされたら
+$(document).on("click", ".add", function () {
+
+ // 選択された親要素をコピーし、親要素の後に追加する
+ // ※親要素は<div id="item">になる
+ $(this).parent().clone(true).insertAfter($(this).parent());
+
+});
+
+
+
+
+// －ボタン(class="del")がクリックされたら
+$(document).on("click", ".del", function () {
+
+	// 2ヵ所で使うので選択された親要素を変数targetに格納
+	// ※親要素は<div id="item">になる
+	var target = $(this).parent();
+
+	// targetの親要素の配下の要素数が1以下だったら
+	// ※targetの親要素は<div id="list">になる
+	if(target.parent().children().length > 1){
+
+		// <div id="item">を削除する
+		target.remove();
+
+	}
+
+});
+
+
+// －ボタン(class="del")がクリックされたら
+$(document).on("click", ".del", function () {
+
+ // 2ヵ所で使うので選択された親要素を変数targetに格納
+ // ※親要素は<div id="item">になる
+ var target = $(this).parent();
+
+ // targetの親要素の配下の要素数が1以下だったら
+ // ※targetの親要素は<div id="list">になる
+ if(target.parent().children().length > 1){
+
+ // <div id="item">を削除する
+ target.remove();
+
+ }
+
+});</script>
+    <div class="container">
     <table border="1">
         <thead>
         <tr>
@@ -42,7 +91,6 @@
         </tbody>
 
     </table>
-    </div>
     <form method="POST">{% csrf_token %}
         <ur>
             <li>{{ gform.my_team.label }}: {{ gform.my_team }}</li>
@@ -53,10 +101,10 @@
             <li>{{ gform.my_score.label }}: {{ gform.my_score }}</li>
             <li>{{ gform.opponent_score.label }}: {{ gform.opponent_score }}</li>
         </ur>
-        <button type="submit">Save</button>
-    </form>
+
+    </div>
     </br>
-    <div>
+    <div class="container">
     <table>
         <thead>
         <tr>
@@ -70,6 +118,44 @@
             <th>三振</th>
         </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td>{{ pform.dajun }}</td>
+                <td>{{ pform.player_id }}</td>
+                <td>{{ pform.position }}</td>
+                <td>{{ pform.daseki }}</td>
+                <td>{{ pform.dasuu }}</td>
+                <td>{{ pform.hit }}</td>
+                <td>{{ pform.Walk }}</td>
+                <td>{{ pform.stlike_out }}</td>
+                <td>{{ pform.starting_member }}</td>
+            </tr>
+            <tr>
+                <td>{{ pform.dajun }}</td>
+                <td>{{ pform.player_id }}</td>
+                <td>{{ pform.position }}</td>
+                <td>{{ pform.daseki }}</td>
+                <td>{{ pform.dasuu }}</td>
+                <td>{{ pform.hit }}</td>
+                <td>{{ pform.Walk }}</td>
+                <td>{{ pform.stlike_out }}</td>
+                <td>{{ pform.starting_member }}</td>
+            </tr>
+        </tbody>
+            <button type="submit">Save</button>
+        </form>
     </table>
     </div>
+
+<!--        <div id="list">
+        <div id="item">
+            <label for="label1" style="width: 20%">ラベル：</label>
+            <input type="text" name="itemNm" style="width: 20%">
+            <label for="label2" style="width: 20%">ラベル：</label>
+            <input type="number" name="number" style="width: 20%">
+            <input type="button" value="＋" class="add" style="width: 10%">
+            <input type="button" value="－" class="del" style="width: 10%">
+        </div>
+        </div>-->
+
 {% endblock %}
