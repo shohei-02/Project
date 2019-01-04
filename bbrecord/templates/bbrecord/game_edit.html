@@ -93,21 +93,22 @@ $(document).on("click", ".del", function () {
     </table>
     <form method="POST">{% csrf_token %}
         <ur>
-            <li>{{ gform.my_team.label }}: {{ gform.my_team }}</li>
-            <li>{{ gform.game_date.label }}: {{ gform.game_date }}</li>
-            <li>{{ gform.venue.label }}: {{ gform.venue }}</li>
-            <li>{{ gform.weather.label }}: {{ gform.weather }}</li>
-            <li>{{ gform.opponent_team.label }}: {{ gform.opponent_team }}</li>
-            <li>{{ gform.my_score.label }}: {{ gform.my_score }}</li>
-            <li>{{ gform.opponent_score.label }}: {{ gform.opponent_score }}</li>
+            <li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>
+            <li><label>試合日時: </label><input type="datetime" name="game_date" id="game_date"></li>
+            <li><label>場所: </label><input type="text" name="venue" id="venue"></li>
+            <li><label>天気: </label><input type="text" name="weather" id="weather"></li>
+            <li><label>相手チーム名: </label><input type="text" name="opponent_team" id="opponent_team"></li>
+            <li><label>自チーム得点: </label><input type="text" name="my_score" id="my_score"></li>
+            <li><label>相手チーム得点: </label><input type="text" name="opponent_score" id="opponent_score"></li>
         </ur>
 
     </div>
     </br>
     <div class="container">
-    <table>
+    <table border="1">
         <thead>
         <tr>
+            <th>先発</th>
             <th>打順</th>
             <th>名前</th>
             <th>ポジション</th>
@@ -119,32 +120,29 @@ $(document).on("click", ".del", function () {
         </tr>
         </thead>
         <tbody>
+        {% for i in  "999999999" %}
             <tr>
-                <td>{{ pform.dajun }}</td>
-                <td>{{ pform.player_id }}</td>
-                <td>{{ pform.position }}</td>
-                <td>{{ pform.daseki }}</td>
-                <td>{{ pform.dasuu }}</td>
-                <td>{{ pform.hit }}</td>
-                <td>{{ pform.Walk }}</td>
-                <td>{{ pform.stlike_out }}</td>
-                <td>{{ pform.starting_member }}</td>
+                <td><input type="checkbox" name="starting_member" id="starting_member{{ forloop.counter }}"></td>
+                <td><input type="text" name="dajun" id="dajun" value="{{ forloop.counter }}"></td>
+                <td><select name="player_id" id="player_id">
+                    <option value="">------</option>
+                    {% for v in users %}
+                    <option value="{{ v }}">{{ v }}</option>
+                    {% endfor %}</select>
+                </td>
+                <td><input type="text" name="position" id="position{{ forloop.counter }}"></td>
+                <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="0"></td>
+                <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="0"></td>
+                <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="0"></td>
+                <td><input type="text" name="Walk" id="Walk{{ forloop.counter }}" value="0"></td>
+                <td><input type="text" name="stlike_out" id="stlike_out{{ forloop.counter }}" value="0"></td>
             </tr>
-            <tr>
-                <td>{{ pform.dajun }}</td>
-                <td>{{ pform.player_id }}</td>
-                <td>{{ pform.position }}</td>
-                <td>{{ pform.daseki }}</td>
-                <td>{{ pform.dasuu }}</td>
-                <td>{{ pform.hit }}</td>
-                <td>{{ pform.Walk }}</td>
-                <td>{{ pform.stlike_out }}</td>
-                <td>{{ pform.starting_member }}</td>
-            </tr>
+        {% endfor %}
         </tbody>
-            <button type="submit">Save</button>
+        </table>
+        <button type="submit">Save</button>
         </form>
-    </table>
+
     </div>
 
 <!--        <div id="list">

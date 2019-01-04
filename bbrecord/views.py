@@ -24,31 +24,32 @@ def game_detail(request, id):
 
 
 def game_new(request):
+    users = User.objects.all()
     if request.method == "POST":
-        gform = GameForm(request.POST)
-        if gform.is_valid():
-            game = gform.save(commit=False)
-            game.save()
-            game = Game.objects.get(id=game.id)
-            user = request.POST.getlist('player_id')
-            for i in user:
-                player = User.objects.get(id=i)
-                Playerstats.objects.create(
-                    player_id=player,
-                    game_id=game,
-                # dajun=request.POST['dajun'],
-                # daseki=request.POST['daseki'],
-                # position=request.POST['position'],
-                # dasuu=request.POST['dasuu'],
-                # hit=request.POST['hit'],
-                # Walk=request.POST['Walk'],
-                # stlike_out=request.POST['stlike_out'],
-                )
-            return redirect('game_list')
+        a = request.POST.dict()
+        game = Game.objects.create(
+            my_team=a['my_team'],
+            game_date=a['game_date'],
+            venue=a['venue'],
+            weather=a['weather'],
+            opponent_team=a['opponent_team'],
+            my_score=a['my_score'],
+            opponent_score=a['opponent_score'])
+        game = Game.objects.get(id=game.id)
+        player = User.objects.get(name=a['player_id'])
+        Playerstats.objects.create(player_id=player,
+                                   game_id=game,
+                                   dajun=a['dajun'],
+                                   daseki=a['daseki'],
+                                   dasuu=a['dasuu'],
+                                   hit=a['hit'],
+                                   Walk=a['Walk'],
+                                   stlike_out=a['stlike_out'],
+                                   position=a['position'])
+        return redirect('game_list')
     else:
         gform = GameForm()
-        pform = PlayerstatsForm()
-    return render(request, 'bbrecord/game_edit.html', {'gform': gform, 'pform': pform})
+    return render(request, 'bbrecord/game_edit.html', {'gform': gform, 'users': users})
 
 
 def game_delete(request, id):
