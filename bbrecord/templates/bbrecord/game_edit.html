@@ -1,6 +1,7 @@
 {% extends 'bbrecord/base.html' %}
 ​
 {% block content %}
+{% load static %}
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
 <script>// ＋ボタン(class="add")がクリックされたら
 $(document).on("click", ".add", function () {
@@ -51,47 +52,36 @@ $(document).on("click", ".del", function () {
 
 });</script>
     <div class="container">
-    <table border="1">
-        <thead>
-        <tr>
-            <th>イニング</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>計</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td></td>
-        </tr>
-        </tbody>
-
-    </table>
     <form method="POST">{% csrf_token %}
+        <table border="1">
+            <thead>
+            <tr>
+                <th>イニング</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>先行チーム</td>
+                {% for i in  "999999999" %}
+                    <td><input type="number" name="my_inning" id="ining" style="width:40px;"></td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>後攻チーム</td>
+                {% for i in  "999999999" %}
+                    <td><input type="number" name="opponent_inning" id="ining" style="width:40px;"></td>
+                {% endfor %}
+            </tr>
+        </table></br>
         <ur>
             <li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>
             <li><label>試合日時: </label><input type="datetime" name="game_date" id="game_date"></li>
@@ -123,27 +113,30 @@ $(document).on("click", ".del", function () {
         {% for i in  "999999999" %}
             <tr>
                 <td><input type="checkbox" name="starting_member" id="starting_member{{ forloop.counter }}"></td>
-                <td><input type="text" name="dajun" id="dajun" value="{{ forloop.counter }}"></td>
+                <td><input type="text" name="dajun" id="dajun" style="width:40px;" value="{{ forloop.counter }}"></td>
                 <td><select name="player_id" id="player_id">
                     <option value="">------</option>
                     {% for v in users %}
                     <option value="{{ v }}">{{ v }}</option>
                     {% endfor %}</select>
                 </td>
-                <td><input type="text" name="position" id="position{{ forloop.counter }}"></td>
-                <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="0"></td>
-                <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="0"></td>
-                <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="0"></td>
-                <td><input type="text" name="Walk" id="Walk{{ forloop.counter }}" value="0"></td>
-                <td><input type="text" name="stlike_out" id="stlike_out{{ forloop.counter }}" value="0"></td>
+                <td><input type="text" name="position" id="position{{ forloop.counter }}" style="width:100px;"></td>
+                <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="Walk" id="Walk{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="stlike_out" id="stlike_out{{ forloop.counter }}" value="0" style="width:80px;"></td>
             </tr>
         {% endfor %}
         </tbody>
         </table>
-        <button type="submit">Save</button>
+        <button type="submit" id="button">Save</button>
         </form>
 
     </div>
+
+    <script src="{% static 'js/handsontable.full.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
 <!--        <div id="list">
         <div id="item">

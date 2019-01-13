@@ -17,7 +17,8 @@ class Game(models.Model):
     opponent_team = models.CharField(max_length=20, blank=True, null=True) #敵チーム名
     my_score = models.IntegerField(blank=True, null=True) #自得点
     opponent_score = models.IntegerField(blank=True, null=True) #敵得点
-    inning_score = models.CharField(max_length=200, blank=True, null=True)
+    my_inning_score = models.CharField(max_length=200, blank=True, null=True) #自イニング得点
+    opponent_inning_score = models.CharField(max_length=200, blank=True, null=True) #敵イニング得点
 
     def __str__(self):
         return self.my_team

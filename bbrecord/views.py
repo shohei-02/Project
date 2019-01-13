@@ -19,14 +19,24 @@ def game_list(request):
 
 def game_detail(request, id):
     games = Game.objects.filter(id=id)
+    game = Game.objects.get(id=id)
+    my_inning = game.my_inning_score.strip("[""]"" ").replace("'", "").split(",")
+    opponent_inning = game.opponent_inning_score.strip("[""]"" ").replace("'", "").split(",")
+    my_inning = filter(lambda a: a != " ", my_inning)
+    opponent_inning = filter(lambda a: a != " ", opponent_inning)
     players = Playerstats.objects.filter(game_id=id).order_by('dajun')
-    return render(request, 'bbrecord/game_detail.html', {'players': players, 'games': games})
+    return render(request, 'bbrecord/game_detail.html', {
+        'players': players,
+        'games': games,
+        'my_inning': my_inning,
+        'opponent_inning': opponent_inning})
 
 
 def game_new(request):
     users = User.objects.all()
     if request.method == "POST":
-        a = request.POST.dict()
+        a = request.POST
+        b = dict(a)
         game = Game.objects.create(
             my_team=a['my_team'],
             game_date=a['game_date'],
@@ -34,22 +44,24 @@ def game_new(request):
             weather=a['weather'],
             opponent_team=a['opponent_team'],
             my_score=a['my_score'],
-            opponent_score=a['opponent_score'])
+            opponent_score=a['opponent_score'],
+            my_inning_score=b['my_inning'],
+            opponent_inning_score=b['opponent_inning'])
         game = Game.objects.get(id=game.id)
-        player = User.objects.get(name=a['player_id'])
-        Playerstats.objects.create(player_id=player,
-                                   game_id=game,
-                                   dajun=a['dajun'],
-                                   daseki=a['daseki'],
-                                   dasuu=a['dasuu'],
-                                   hit=a['hit'],
-                                   Walk=a['Walk'],
-                                   stlike_out=a['stlike_out'],
-                                   position=a['position'])
+        for i in range(0, 9):
+            player = User.objects.get(name=a.getlist('player_id')[i])
+            Playerstats.objects.create(player_id=player,
+                                       game_id=game,
+                                       dajun=a.getlist('dajun')[i],
+                                       daseki=a.getlist('daseki')[i],
+                                       dasuu=a.getlist('dasuu')[i],
+                                       hit=a.getlist('hit')[i],
+                                       Walk=a.getlist('Walk')[i],
+                                       stlike_out=a.getlist('stlike_out')[i],
+                                       position=a.getlist('position')[i])
+
         return redirect('game_list')
-    else:
-        gform = GameForm()
-    return render(request, 'bbrecord/game_edit.html', {'gform': gform, 'users': users})
+    return render(request, 'bbrecord/game_edit.html', {'users': users})
 
 
 def game_delete(request, id):
