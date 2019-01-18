@@ -13,21 +13,21 @@ class GameForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = (
-            'my_team',
+            'top_team',
             'game_date',
             'venue',
             'weather',
-            'opponent_team',
-            'my_score',
-            'opponent_score')
+            'bot_team',
+            'top_score',
+            'bot_score')
         labels = {
-            'my_team': 'チーム名',
+            'top_team': 'チーム名',
             'game_date': '試合日時',
             'venue': '場所',
             'weather': '天気',
-            'opponent_team': '相手チーム名',
-            'my_score': '自チーム得点',
-            'opponent_score': '相手チーム得点'}
+            'bot_team': '相手チーム名',
+            'top_score': '自チーム得点',
+            'bot_score': '相手チーム得点'}
 
     def add_prefix(self, field_name):  # dict に存在しない場合はフィールド名を利用する
         return super(GameForm, self).add_prefix(field_name)

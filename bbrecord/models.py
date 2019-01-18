@@ -13,12 +13,12 @@ class Game(models.Model):
     game_date = models.DateTimeField('試合日時')
     venue = models.CharField(max_length=20, blank=True, null=True) #グランド名
     weather = models.CharField(max_length=10, blank=True, null=True) #天気
-    my_team = models.CharField(max_length=20, blank=True, null=True) #自チーム名
-    opponent_team = models.CharField(max_length=20, blank=True, null=True) #敵チーム名
-    my_score = models.IntegerField(blank=True, null=True) #自得点
-    opponent_score = models.IntegerField(blank=True, null=True) #敵得点
-    my_inning_score = models.CharField(max_length=200, blank=True, null=True) #自イニング得点
-    opponent_inning_score = models.CharField(max_length=200, blank=True, null=True) #敵イニング得点
+    top_team = models.CharField(max_length=20, blank=True, null=True) #先行チーム名
+    bot_team = models.CharField(max_length=20, blank=True, null=True) #後攻チーム名
+    top_score = models.IntegerField(blank=True, null=True) #先行得点
+    bot_score = models.IntegerField(blank=True, null=True) #後攻得点
+    top_inning_score = models.CharField(max_length=200, blank=True, null=True) #先行イニング得点
+    bot_inning_score = models.CharField(max_length=200, blank=True, null=True) #後攻イニング得点
 
     def __str__(self):
         return self.my_team

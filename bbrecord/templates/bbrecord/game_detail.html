@@ -6,31 +6,27 @@
         <thead class="table-sm">
         <tr class="table-secondary">
             <th></th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
+            {% for i in inning %}
+                <th>{{ i }}</th>
+            {% endfor %}
             <th>計</th>
         </tr>
         </thead>
         <tbody>
         {% for game in games %}
         <tr>
-            <td class="table-active">{{ game.opponent_team }}</td>
-            {% for score in opponent_inning %}
+            <td class="table-active">{{ game.top_team }}</td>
+            {% for score in top_inning_dict_2 %}
                 <td class="table-active">{{ score }}</td>
             {% endfor %}
-            <td class="table-active">{{ game.opponent_score }}</td>
+            <td class="table-active">{{ game.top_score }}</td>
         </tr>
         <tr>
-            <td class="table-active">{{ game.my_team }}</td>
-            {% for score in my_inning %}
+            <td class="table-active">{{ game.bot_team }}</td>
+            {% for score in bot_inning_dict_2 %}
                 <td class="table-active">{{ score }}</td>
             {% endfor %}
-            <td class="table-active">{{ game.my_score }}</td>
+            <td class="table-active">{{ game.bot_score }}</td>
         </tr>
         {% endfor %}
         </tbody>

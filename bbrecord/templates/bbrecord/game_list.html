@@ -7,9 +7,9 @@
         <p1>{{ game.game_date }}</p1>
         <p1>{{ game.venue }}</p1>
         <p1>{{ game.weather }}</p1></br>
-        <p1>{{ game.my_team }}</p1>
-        <p1><a href=" {% url 'game_detail' game.id %} ">{{ game.my_score }}-{{ game.opponent_score }}</a></p1>
-        <p1>{{ game.opponent_team }}</p1></br>
+        <p1>{{ game.top_team }}</p1>
+        <p1><a href=" {% url 'game_detail' game.id %} ">{{ game.top_score }}-{{ game.bot_score }}</a></p1>
+        <p1>{{ game.bot_team }}</p1></br>
         <p1><a href=" {% url 'game_delete' game.id %} ">削除</a></p1>
     {% endfor %}
 {% endblock %}

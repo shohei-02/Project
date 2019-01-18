@@ -70,26 +70,26 @@ $(document).on("click", ".del", function () {
             </thead>
             <tbody>
             <tr>
-                <td>先行チーム</td>
+                <td><label>先行チーム名: </label><input type="text" name="top_team" id="top_team"></td>
                 {% for i in  "999999999" %}
-                    <td><input type="number" name="my_inning" id="ining" style="width:40px;"></td>
+                    <td><input type="number" name="top_inning" id="inning" style="width:40px;"></td>
                 {% endfor %}
             </tr>
             <tr>
-                <td>後攻チーム</td>
+                <td><label>後攻チーム名: </label><input type="text" name="bot_team" id="bot_team"></td>
                 {% for i in  "999999999" %}
-                    <td><input type="number" name="opponent_inning" id="ining" style="width:40px;"></td>
+                    <td><input type="number" name="bot_inning" id="inning" style="width:40px;"></td>
                 {% endfor %}
             </tr>
         </table></br>
         <ur>
-            <li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>
+            <!--<li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>-->
             <li><label>試合日時: </label><input type="datetime" name="game_date" id="game_date"></li>
             <li><label>場所: </label><input type="text" name="venue" id="venue"></li>
             <li><label>天気: </label><input type="text" name="weather" id="weather"></li>
-            <li><label>相手チーム名: </label><input type="text" name="opponent_team" id="opponent_team"></li>
-            <li><label>自チーム得点: </label><input type="text" name="my_score" id="my_score"></li>
-            <li><label>相手チーム得点: </label><input type="text" name="opponent_score" id="opponent_score"></li>
+            <!--<li><label>相手チーム名: </label><input type="text" name="opponent_team" id="opponent_team"></li>-->
+            <!--<li><label>自チーム得点: </label><input type="text" name="my_score" id="my_score"></li>-->
+            <!--<li><label>相手チーム得点: </label><input type="text" name="opponent_score" id="opponent_score"></li>-->
         </ur>
 
     </div>
@@ -115,7 +115,7 @@ $(document).on("click", ".del", function () {
                 <td><input type="checkbox" name="starting_member" id="starting_member{{ forloop.counter }}"></td>
                 <td><input type="text" name="dajun" id="dajun" style="width:40px;" value="{{ forloop.counter }}"></td>
                 <td><select name="player_id" id="player_id">
-                    <option value="">------</option>
+                    <!--<option value="">------</option>-->
                     {% for v in users %}
                     <option value="{{ v }}">{{ v }}</option>
                     {% endfor %}</select>
