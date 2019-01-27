@@ -57,7 +57,7 @@ class PlayerstatsForm(forms.ModelForm):
             'starting_member')
         labels = {
             'player_id': '選手名',
-            'game_id': 'game_is',
+            'game_id': 'game_id',
             'daseki': '打席数',
             'dasuu': '打数',
             'hit': '安打',

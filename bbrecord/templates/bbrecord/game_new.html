@@ -70,22 +70,26 @@ $(document).on("click", ".del", function () {
             </thead>
             <tbody>
             <tr>
-                <td><label>先行チーム名: </label><input type="text" name="top_team" id="top_team" value="{{ game.top_team }}"></td>
-                {% for score in  top_inning_dict_2 %}
-                    <td><input type="number" name="top_inning" id="inning" style="width:40px;" value="{{ score }}"></td>
+                <td><label>先行チーム名: </label><input type="text" name="top_team" id="top_team"></td>
+                {% for i in  "999999999" %}
+                    <td><input type="number" name="top_inning" id="inning" style="width:40px;"></td>
                 {% endfor %}
             </tr>
             <tr>
-                <td><label>後攻チーム名: </label><input type="text" name="bot_team" id="bot_team" value="{{ game.bot_team }}"></td>
-                {% for score in  bot_inning_dict_2 %}
-                    <td><input type="number" name="bot_inning" id="inning" style="width:40px;" value="{{ score }}"></td>
+                <td><label>後攻チーム名: </label><input type="text" name="bot_team" id="bot_team"></td>
+                {% for i in  "999999999" %}
+                    <td><input type="number" name="bot_inning" id="inning" style="width:40px;"></td>
                 {% endfor %}
             </tr>
         </table></br>
         <ur>
-            <li><label>試合日時: </label><input type="text" name="game_date" id="game_date" value="{{ game.game_date }}"></li>
-            <li><label>場所: </label><input type="text" name="venue" id="venue" value="{{ game.venue }}"></li>
-            <li><label>天気: </label><input type="text" name="weather" id="weather" value="{{ game.weather }}"></li>
+            <!--<li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>-->
+            <li><label>試合日時: </label><input type="datetime" name="game_date" id="game_date"></li>
+            <li><label>場所: </label><input type="text" name="venue" id="venue"></li>
+            <li><label>天気: </label><input type="text" name="weather" id="weather"></li>
+            <!--<li><label>相手チーム名: </label><input type="text" name="opponent_team" id="opponent_team"></li>-->
+            <!--<li><label>自チーム得点: </label><input type="text" name="my_score" id="my_score"></li>-->
+            <!--<li><label>相手チーム得点: </label><input type="text" name="opponent_score" id="opponent_score"></li>-->
         </ur>
 
     </div>
@@ -106,25 +110,22 @@ $(document).on("click", ".del", function () {
         </tr>
         </thead>
         <tbody>
-        {% for i in  players %}
+        {% for i in  "999999999" %}
             <tr>
                 <td><input type="checkbox" name="starting_member" id="starting_member{{ forloop.counter }}"></td>
                 <td><input type="text" name="dajun" id="dajun" style="width:40px;" value="{{ forloop.counter }}"></td>
                 <td><select name="player_id" id="player_id">
-                    <option value="{{ i.user_name }}" selected>{{ i.user_name }}</option>
+                    <option value="">------</option>
                     {% for v in users %}
-                        {% if not v == i.user_name %}
-                            <option value="{{ v }}">{{ v }}</option>
-                        {% endif %}
-                    {% endfor %}
-                    </select>
+                    <option value="{{ v }}">{{ v }}</option>
+                    {% endfor %}</select>
                 </td>
-                <td><input type="text" name="position" id="position{{ forloop.counter }}" style="width:100px;" value="{{ i.position }}"></td>
-                <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="{{ i.daseki }}" style="width:80px;"></td>
-                <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="{{ i.dasuu }}" style="width:80px;"></td>
-                <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="{{ i.hit }}" style="width:80px;"></td>
-                <td><input type="text" name="Walk" id="Walk{{ forloop.counter }}" value="{{ i.Walk }}" style="width:80px;"></td>
-                <td><input type="text" name="stlike_out" id="stlike_out{{ forloop.counter }}" value="{{ i.stlike_out }}" style="width:80px;"></td>
+                <td><input type="text" name="position" id="position{{ forloop.counter }}" style="width:100px;"></td>
+                <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="Walk" id="Walk{{ forloop.counter }}" value="0" style="width:80px;"></td>
+                <td><input type="text" name="stlike_out" id="stlike_out{{ forloop.counter }}" value="0" style="width:80px;"></td>
             </tr>
         {% endfor %}
         </tbody>

@@ -21,7 +21,7 @@ class Game(models.Model):
     bot_inning_score = models.CharField(max_length=200, blank=True, null=True) #後攻イニング得点
 
     def __str__(self):
-        return self.my_team
+        return self.top_team
 
 
 class Playerstats(models.Model):
@@ -32,7 +32,6 @@ class Playerstats(models.Model):
     hit = models.IntegerField(blank=True, null=True)
     Walk = models.IntegerField(blank=True, null=True)
     stlike_out = models.IntegerField(blank=True, null=True)
-    position = models.CharField(max_length=10, blank=True, null=True)
+    position = models.IntegerField(blank=True, null=True)
     dajun = models.IntegerField(blank=True, null=True)
     starting_member = models.BooleanField(default=False)
-

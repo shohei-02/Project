@@ -13,7 +13,6 @@
         </tr>
         </thead>
         <tbody>
-        {% for game in games %}
         <tr>
             <td class="table-active">{{ game.top_team }}</td>
             {% for score in top_inning_dict_2 %}
@@ -28,7 +27,6 @@
             {% endfor %}
             <td class="table-active">{{ game.bot_score }}</td>
         </tr>
-        {% endfor %}
         </tbody>
     </table>
     </div>
@@ -52,7 +50,7 @@
         <tr>
             <td>{{ player.dajun }}</td>
             <td>{{ player.player_id }}</td>
-            <td>{{ player.position }}</td>
+            <td>{{ position_dict[player.position] }}</td>
             <td>{{ player.daseki }}</td>
             <td>{{ player.dasuu }}</td>
             <td>{{ player.hit }}</td>
