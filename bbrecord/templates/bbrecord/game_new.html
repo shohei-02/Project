@@ -83,13 +83,13 @@ $(document).on("click", ".del", function () {
             </tr>
         </table></br>
         <ur>
-            <!--<li><label>チーム名: </label><input type="text" name="my_team" id="my_team"></li>-->
             <li><label>試合日時: </label><input type="datetime" name="game_date" id="game_date"></li>
             <li><label>場所: </label><input type="text" name="venue" id="venue"></li>
-            <li><label>天気: </label><input type="text" name="weather" id="weather"></li>
-            <!--<li><label>相手チーム名: </label><input type="text" name="opponent_team" id="opponent_team"></li>-->
-            <!--<li><label>自チーム得点: </label><input type="text" name="my_score" id="my_score"></li>-->
-            <!--<li><label>相手チーム得点: </label><input type="text" name="opponent_score" id="opponent_score"></li>-->
+            <li><label>天気: </label>
+                <select name="weather" id="weather">
+                    {% for i, v in weather_dict.items %}
+                        <option value="{{ i }}">{{ v }}</option>
+                {% endfor %}</select></li>
         </ur>
 
     </div>
@@ -117,10 +117,14 @@ $(document).on("click", ".del", function () {
                 <td><select name="player_id" id="player_id">
                     <option value="">------</option>
                     {% for v in users %}
-                    <option value="{{ v }}">{{ v }}</option>
+                        <option value="{{ v }}">{{ v }}</option>
                     {% endfor %}</select>
                 </td>
-                <td><input type="text" name="position" id="position{{ forloop.counter }}" style="width:100px;"></td>
+                <td><select name="position" id="position">
+                    {% for i, v in position_dict.items %}
+                        <option value="{{ i }}">{{ v }}</option>
+                    {% endfor %}</select>
+                </td>
                 <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="0" style="width:80px;"></td>
                 <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="0" style="width:80px;"></td>
                 <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="0" style="width:80px;"></td>

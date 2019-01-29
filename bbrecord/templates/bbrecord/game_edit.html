@@ -85,7 +85,16 @@ $(document).on("click", ".del", function () {
         <ur>
             <li><label>試合日時: </label><input type="text" name="game_date" id="game_date" value="{{ game.game_date }}"></li>
             <li><label>場所: </label><input type="text" name="venue" id="venue" value="{{ game.venue }}"></li>
-            <li><label>天気: </label><input type="text" name="weather" id="weather" value="{{ game.weather }}"></li>
+            <li><label>天気: </label>
+                <select name="weather" id="weather">
+                    {% for i, v in weather_dict.items %}
+                        {% if i == game.weather %}
+                            <option value="{{ i }}" selected>{{ v }}</option>
+                        {% endif %}
+                        {% if not i == game.weather %}
+                            <option value="{{ i }}">{{ v }}</option>
+                        {% endif %}
+                {% endfor %}</select></li>
         </ur>
 
     </div>
@@ -119,7 +128,14 @@ $(document).on("click", ".del", function () {
                     {% endfor %}
                     </select>
                 </td>
-                <td><input type="text" name="position" id="position{{ forloop.counter }}" style="width:100px;" value="{{ i.position }}"></td>
+                <td><select name="position" id="position">
+                    <option value="{{ i.position }}" selected>{{ i.position_name }}</option>
+                    {% for k, v in position_dict.items %}
+                        {% if not k == i.position %}
+                            <option value="{{ k }}">{{ v }}</option>
+                        {% endif %}
+                    {% endfor %}</select>
+                </td>
                 <td><input type="text" name="daseki" id="daseki{{ forloop.counter }}" value="{{ i.daseki }}" style="width:80px;"></td>
                 <td><input type="text" name="dasuu" id="dasuu{{ forloop.counter }}" value="{{ i.dasuu }}" style="width:80px;"></td>
                 <td><input type="text" name="hit" id="hit{{ forloop.counter }}" value="{{ i.hit }}" style="width:80px;"></td>
