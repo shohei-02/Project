@@ -1,0 +1,48 @@
+{% extends 'bbrecord/base.html' %}
+​
+{% block content %}
+    <table class="table table-hover table-sm" id="users">
+        <thead class="thead-light">
+        <tr align="center">
+            <th class="sort" data-sort="player_name">名 前</th>
+            <th class="sort" data-sort="game">試 合</th>
+            <th class="sort" data-sort="daseki">打 席</th>
+            <th class="sort" data-sort="dasuu">打 数</th>
+            <th class="sort" data-sort="hit">安 打</th>
+            <th class="sort" data-sort="walk">四死球</th>
+            <th class="sort" data-sort="stlike_out">三 振</th>
+            <th class="sort" data-sort="average">打 率</th>
+        </tr>
+        </thead>
+        <tbody class="list">
+        {% for player in players %}
+        <tr>
+            <td style="width:80px;" align="left" class="player_name">{{ player.player_id }}</td>
+            <td style="width:80px;" align="right" class="game">{{ player.game_total}}</td>
+            <td style="width:80px;" align="right" class="daseki">{{ player.daseki_total }}</td>
+            <td style="width:80px;" align="right" class="dasuu">{{ player.dasuu_total }}</td>
+            <td style="width:80px;" align="right" class="hit">{{ player.hit_total }}</td>
+            <td style="width:80px;" align="right" class="walk">{{ player.walk_total }}</td>
+            <td style="width:80px;" align="right" class="stlike_out">{{ player.stlike_out_total }}</td>
+            <td style="width:80px;" align="right" class="average">{{ player.average }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<script>
+var options = {
+  valueNames: [ 'player_name', 'game', 'daseki', 'dasuu', 'hit', 'walk', 'stlike_out', 'average' ]
+};
+var userList = new List('users', options);
+userList.sort( 'game', {order : 'desc' });
+</script>
+<style>
+.sort.desc:after {
+  content:"▼";
+}
+.sort.asc:after {
+  content:"▲";
+}
+</style>
+{% endblock %}

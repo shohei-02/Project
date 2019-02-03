@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 import json
 from .forms import GameForm, PlayerstatsForm
+from django.db.models import Avg, Max, Min, Count, Sum
 
 position_dict = {1: "ピッチャー",
                  2: "キャッチャー",
@@ -197,4 +198,21 @@ def game_delete(request, id):
     game.delete()
     return redirect('game_list')
 
+
+def stats_list(request):
+    users = User.objects.all()
+    players = Playerstats.objects.values('player_id').\
+        annotate(game_total=Count('game_id'),
+                 daseki_total=Sum('daseki'),
+                 dasuu_total=Sum('dasuu'),
+                 hit_total=Sum('hit'),
+                 walk_total=Sum('Walk'),
+                 stlike_out_total=Sum('stlike_out'))
+    for v, i in enumerate(players):
+        i['player_id'] = users[v].name
+        try:
+            i['average'] = f"{i['hit_total'] / i['dasuu_total']:.3f}"
+        except ZeroDivisionError:
+            i['average'] = f"{0:.3f}"
+    return render(request, 'bbrecord/stats_list.html', {'players': players})
 

@@ -9,4 +9,5 @@ urlpatterns = [
     path('game_list/new/', views.game_new, name='game_new'),
     path('game_list/<int:id>/edit/', views.game_edit, name='game_edit'),
     path('game_list/game_delete/<int:id>/', views.game_delete, name='game_delete'),
+    path('stats_list', views.stats_list, name='stats_list'),
 ]
