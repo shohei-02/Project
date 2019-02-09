@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 import json
 from .forms import GameForm, PlayerstatsForm
 from django.db.models import Avg, Max, Min, Count, Sum
+import datetime
 
 position_dict = {1: "ピッチャー",
                  2: "キャッチャー",
@@ -28,7 +29,21 @@ def index(request):
 
 
 def game_list(request):
-    games = Game.objects.all()
+    games = Game.objects.all().order_by('-game_date')
+    if request.method == "POST":
+
+        # 年度ボタン処理
+        if 'year_button' in request.POST:
+            if request.POST['year_choice'] == 'null':
+                games = Game.objects.all().order_by('-game_date')
+            else:
+                games = Game.objects.filter(game_date__year=request.POST['year_choice']).order_by('-game_date')
+
+        # from-toボタン処理
+        elif 'from_to' in request.POST:
+            games = Game.objects.filter(game_date__range=(request.POST['from_date'],
+                                                          request.POST['to'])).order_by('-game_date')
+
     for i in games:
         i.weather = weather_dict[i.weather]
     return render(request, 'bbrecord/game_list.html', {'games': games})
@@ -73,21 +88,26 @@ def game_new(request):
         bot_score_dict = dict(zip(inning, bot_score_list))
         top_score_dict['total'] = sum(top_score_list)
         bot_score_dict['total'] = sum(bot_score_list)
-        score = 0
-        for i in range(0, len(bot_score_list)-1):
-            score += bot_score_list[i]
+
+        # 最終回以外の得点を合計する
+        score = sum(bot_score_list) - bot_score_list[-1]
+
+        # サヨナラゲームの判定
         sayonara_game = False
         if bot_score_dict['total'] > top_score_dict['total'] >= score:
             sayonara_game = True
+
+        # コールド得点差の判定
         score_remain = bot_score_dict['total'] - top_score_dict['total']
-        if 3 <= len(top_score_dict) >= 4 and score_remain >= 10: #3回以上4回以下かつ10点差
+        if len(top_score_dict) in(3, 4) and score_remain >= 10:  # 3回以上4回以下かつ10点差
             flag = True
-        elif 5 <= len(top_score_dict) >= 6 and score_remain >= 7: #5回以上6回以下かつ7点差
+        elif len(top_score_dict) in(5, 6) and score_remain >= 7:  # 5回以上6回以下かつ7点差
             flag = True
-        elif len(top_score_dict) == len(bot_score_dict) and sayonara_game: #サヨナラ
+        elif len(top_score_dict) == len(bot_score_dict) and sayonara_game:  # サヨナラ
             flag = True
         else:
             flag = False
+
         top_str = json.dumps(top_score_dict)
         bot_str = json.dumps(bot_score_dict)
         game = Game.objects.create(
@@ -114,6 +134,7 @@ def game_new(request):
                                        stlike_out=a.getlist('stlike_out')[i],
                                        position=a.getlist('position')[i])
         return redirect('game_list')
+
     return render(request, 'bbrecord/game_new.html', {'users': users,
                                                       'position_dict': position_dict,
                                                       'weather_dict': weather_dict})
@@ -144,21 +165,26 @@ def game_edit(request, id):
         bot_score_dict = dict(zip(inning, bot_score_list))
         top_score_dict['total'] = sum(top_score_list)
         bot_score_dict['total'] = sum(bot_score_list)
-        score = 0
-        for i in range(0, len(bot_score_list)-1):
-            score += bot_score_list[i]
+
+        # 最終回以外の得点を合計する
+        score = sum(bot_score_list) - bot_score_list[-1]
+
+        # サヨナラゲームの判定
         sayonara_game = False
         if bot_score_dict['total'] > top_score_dict['total'] >= score:
             sayonara_game = True
+
+        # コールド得点差の判定
         score_remain = bot_score_dict['total'] - top_score_dict['total']
-        if 3 <= len(top_score_dict) == 4 and score_remain >= 10: #3回以上4回以下かつ10点差
+        if 3 <= len(top_score_dict) == 4 and score_remain >= 10:  # 3回以上4回以下かつ10点差
             flag = True
-        elif 5 <= len(top_score_dict) == 6 and score_remain >= 7: #5回以上6回以下かつ7点差
+        elif 5 <= len(top_score_dict) == 6 and score_remain >= 7:  # 5回以上6回以下かつ7点差
             flag = True
-        elif len(top_score_dict) == len(bot_score_dict) and sayonara_game: #サヨナラ
+        elif len(top_score_dict) == len(bot_score_dict) and sayonara_game:  # サヨナラ
             flag = True
         else:
             flag = False
+
         top_str = json.dumps(top_score_dict)
         bot_str = json.dumps(bot_score_dict)
         Game.objects.filter(id=game.id).update(
@@ -183,6 +209,7 @@ def game_edit(request, id):
                 stlike_out=a.getlist('stlike_out')[i],
                 position=a.getlist('position')[i])
         return redirect('game_list')
+
     return render(request, 'bbrecord/game_edit.html', {
         'game': game,
         'users': users,
@@ -200,8 +227,22 @@ def game_delete(request, id):
 
 
 def stats_list(request):
-    users = User.objects.all()
-    players = Playerstats.objects.values('player_id').\
+    games = Game.objects.all()
+    if request.method == "POST":
+
+        # 年度ボタン処理
+        if 'year_button' in request.POST:
+            if request.POST['year_choice'] == 'null':
+                games = Game.objects.all()
+            else:
+                games = Game.objects.filter(game_date__year=request.POST['year_choice'])
+
+        # from-toボタン処理
+        elif 'from_to' in request.POST:
+            games = Game.objects.filter(game_date__range=(request.POST['from_date'],
+                                                          request.POST['to']))
+
+    players = Playerstats.objects.filter(game_id__in=[i.id for i in games]).values('player_id').\
         annotate(game_total=Count('game_id'),
                  daseki_total=Sum('daseki'),
                  dasuu_total=Sum('dasuu'),
@@ -209,7 +250,7 @@ def stats_list(request):
                  walk_total=Sum('Walk'),
                  stlike_out_total=Sum('stlike_out'))
     for v, i in enumerate(players):
-        i['player_id'] = users[v].name
+        i['player_id'] = User.objects.get(id=i['player_id']).name
         try:
             i['average'] = f"{i['hit_total'] / i['dasuu_total']:.3f}"
         except ZeroDivisionError:

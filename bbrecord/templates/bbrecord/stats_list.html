@@ -1,8 +1,18 @@
 {% extends 'bbrecord/base.html' %}
 ​
 {% block content %}
-    <table class="table table-hover table-sm" id="users">
-        <thead class="thead-light">
+<form method="POST">{% csrf_token %}
+    <select name="year_choice" id="year_choice">
+        <option value="null">年度</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+    </select>
+    <button type="submit" id="button" name="year_button">ボタン</button>
+    <label>From：</label><input type="date" name="from_date" id="from_date"><label>To：</label><input type="date" name="to" id="to">
+    <button type="submit" id="button" name="from_to">ボタン</button>
+</form></br>
+<table class="table table-hover table-sm" id="users">
+    <thead class="thead-light">
         <tr align="center">
             <th class="sort" data-sort="player_name">名 前</th>
             <th class="sort" data-sort="game">試 合</th>
@@ -13,9 +23,9 @@
             <th class="sort" data-sort="stlike_out">三 振</th>
             <th class="sort" data-sort="average">打 率</th>
         </tr>
-        </thead>
-        <tbody class="list">
-        {% for player in players %}
+    </thead>
+    <tbody class="list">
+    {% for player in players %}
         <tr>
             <td style="width:80px;" align="left" class="player_name">{{ player.player_id }}</td>
             <td style="width:80px;" align="right" class="game">{{ player.game_total}}</td>
@@ -26,9 +36,9 @@
             <td style="width:80px;" align="right" class="stlike_out">{{ player.stlike_out_total }}</td>
             <td style="width:80px;" align="right" class="average">{{ player.average }}</td>
         </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endfor %}
+    </tbody>
+</table>
 <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 <script>
 var options = {

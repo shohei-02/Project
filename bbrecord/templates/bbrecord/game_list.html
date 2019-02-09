@@ -2,14 +2,44 @@
 ​
 {% block content %}
     <h3><a href=" {% url 'game_new' %} ">新規追加</a></h3>
-    {% for game in games %}
-        <p1>{{ game.game_date }}</p1>
-        <p1>{{ game.venue }}</p1>
-        <p1>{{ game.weather }}</p1></br>
-        <p1>{{ game.top_team }}</p1>
-        <p1><a href=" {% url 'game_detail' game.id %} ">{{ game.top_score }}-{{ game.bot_score }}</a></p1>
-        <p1>{{ game.bot_team }}</p1></br>
-        <p1><a href=" {% url 'game_edit' game.id %} ">編集</a></p1>
-    <p1><a href=" {% url 'game_delete' game.id %} ">削除</a></p1></br>
-    {% endfor %}
+    <form method="POST">{% csrf_token %}
+    <select name="year_choice" id="year_choice">
+        <option value="null">年度</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+    </select>
+        <button type="submit" id="button" name="year_button">ボタン</button>
+        <label>From：</label><input type="date" name="from_date" id="from_date"><label>To：</label><input type="date" name="to" id="to">
+        <button type="submit" id="button" name="from_to">ボタン</button>
+    </form>
+    <table class="table table-borderless  table-hover table-striped">
+        <thead class="table-sm">
+            <tr>
+                <th>日時</th>
+                <th>場所</th>
+                <th>天気</th>
+                <th></th>
+                <th>結果</th>
+                <th></th>
+                <th>勝敗</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbdy>
+            {% for game in games %}
+            <tr>
+                <td>{{ game.game_date }}</td>
+                <td>{{ game.venue }}</td>
+                <td>{{ game.weather }}</td>
+                <td>{{ game.top_team }}</td>
+                <td><a href=" {% url 'game_detail' game.id %} ">{{ game.top_score }}-{{ game.bot_score }}</a></td>
+                <td>{{ game.bot_team }}</td>
+                <td></td>
+                <td><a href=" {% url 'game_edit' game.id %} ">編集</a></td>
+                <td><a href=" {% url 'game_delete' game.id %} ">削除</a></td>
+            </tr>
+            {% endfor %}
+        </tbdy>
+    </table>
 {% endblock %}
