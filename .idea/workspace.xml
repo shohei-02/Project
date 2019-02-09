@@ -33,6 +33,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="Procfile" value="1" />
           <entry key="css" value="3" />
           <entry key="gitignore" value="1" />
           <entry key="html" value="17" />
@@ -45,7 +46,7 @@
           <entry key="CSS" value="3" />
           <entry key="HTML" value="17" />
           <entry key="JavaScript" value="3" />
-          <entry key="PLAIN_TEXT" value="1" />
+          <entry key="PLAIN_TEXT" value="2" />
           <entry key="Python" value="18" />
         </counts>
       </usages-collector>
@@ -75,8 +76,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bbrecord/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="91" column="23" lean-forward="true" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
+            <state relative-caret-position="138">
+              <caret line="84" column="73" lean-forward="true" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="73" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <marker date="1549698175459" expanded="true" signature="723:774" ph="..." />
@@ -86,15 +87,6 @@
                 <marker date="1549698175459" expanded="true" signature="8518:8826" ph="..." />
                 <marker date="1549698175459" expanded="true" signature="8943:8944" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bbrecord/templates/bbrecord/game_new.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="115" column="111" lean-forward="true" selection-start-line="115" selection-start-column="90" selection-end-line="115" selection-end-column="111" />
             </state>
           </provider>
         </entry>
@@ -241,8 +233,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="124" />
-    <option name="y" value="282" />
+    <option name="x" value="41" />
+    <option name="y" value="287" />
     <option name="width" value="1375" />
     <option name="height" value="605" />
   </component>
@@ -345,10 +337,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-198" y="543" width="1375" height="605" extended-state="0" />
+    <frame x="41" y="287" width="1375" height="605" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.15509601" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15509601" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.3293944" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -570,10 +562,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/bbrecord/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="91" column="23" lean-forward="true" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
+        <state relative-caret-position="138">
+          <caret line="84" column="73" lean-forward="true" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="73" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <marker date="1549698175459" expanded="true" signature="723:774" ph="..." />
